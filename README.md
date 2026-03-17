@@ -42,13 +42,13 @@ Supported types:
 - Evasive
 
 Example:
-
+```cpp
 CREATE FIGHTER {
     NAME: "King",
     TYPE: "Grappler",
     HP: 150
 }
-
+```
 ---
 
 ### Ability Definition
@@ -60,14 +60,14 @@ Each ability includes:
 - An ACTION block
 
 Example:
-
+```cpp
 CREATE ABILITY {
     NAME: "Head_Smash",
     ACTION: START
         DAMAGE DEFENDER 22
     END
 }
-
+```
 ---
 
 ### Supported Actions
@@ -119,12 +119,12 @@ SHOW ...
 ### Assigning Abilities
 
 Fighters must learn abilities:
-
+```cpp
 DEAR "Lee" LEARN [
     ABILITY_NAME(Give_Autographs)
     ABILITY_NAME(Head_Smash)
 ]
-
+```
 ---
 
 ### Type-Based Mechanics
@@ -153,7 +153,7 @@ Flow:
 ---
 
 ## Example Program
-
+```cpp
 #include "Tekken.h"
 BEGIN_GAME
 
@@ -198,7 +198,7 @@ DEAR "Jack-6" LEARN [
 DUEL
 
 END_GAME
-
+```
 ---
 
 ## Implementation Details
