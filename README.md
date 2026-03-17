@@ -5,13 +5,10 @@
 To compile:
 
 g++ Tekken.cpp -o tekken
-
 or (recommended for C++11 support):
-
 g++ -std=c++11 Tekken.cpp -o tekken
 
 To run:
-
 ./tekken
 
 ---
