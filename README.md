@@ -2,27 +2,31 @@
 
 ## How to Compile and Run
 
-To compile:
+### Compile
 
 ```bash
 g++ Tekken.cpp -o tekken
 ```
+
 or (recommended for C++11 support):
+
 ```bash
 g++ -std=c++11 Tekken.cpp -o tekken
 ```
 
-To run:
+### Run
+
 ```bash
 ./tekken
 ```
+
 ---
 
 ## Project Overview
 
 This project implements a domain-specific language (DSL) for simulating battles inspired by the Tekken video game. The language is embedded in C++ and allows users to define fighters, abilities, and duels using a custom syntax.
 
-The DSL is translated into valid C++ using macros, operator overloading, and helper classes.
+The DSL is implemented using macros, operator overloading, and helper classes.
 
 ---
 
@@ -42,6 +46,7 @@ Supported types:
 - Evasive
 
 Example:
+
 ```cpp
 CREATE FIGHTER {
     NAME: "King",
@@ -49,6 +54,7 @@ CREATE FIGHTER {
     HP: 150
 }
 ```
+
 ---
 
 ### Ability Definition
@@ -60,6 +66,7 @@ Each ability includes:
 - An ACTION block
 
 Example:
+
 ```cpp
 CREATE ABILITY {
     NAME: "Head_Smash",
@@ -68,27 +75,29 @@ CREATE ABILITY {
     END
 }
 ```
+
 ---
 
 ### Supported Actions
 
 Inside abilities:
 
-- DAMAGE DEFENDER/ATTACKER number
-- HEAL DEFENDER/ATTACKER number
-- TAG DEFENDER/ATTACKER value
+- DAMAGE DEFENDER/ATTACKER number  
+- HEAL DEFENDER/ATTACKER number  
+- TAG DEFENDER/ATTACKER value  
 
 Utility functions:
-- GET_HP(...)
-- GET_TYPE(...)
-- GET_NAME(...)
-- IS_OUT_OF_RING(...)
+- `GET_HP(...)`
+- `GET_TYPE(...)`
+- `GET_NAME(...)`
+- `IS_OUT_OF_RING(...)`
 
 ---
 
 ### Control Flow
 
-Conditionals:
+#### Conditionals
+
 ```cpp
 IF condition DO
     ...
@@ -97,37 +106,46 @@ ELSE_IF condition DO
 ELSE
     ...
 END
+```
 
-Loops:
+#### Loops
 
+```cpp
 FOR 5 ROUNDS DO
     ...
 END
+```
 
-Delayed Actions:
+#### Delayed Actions
 
+```cpp
 AFTER 2 ROUNDS DO
     ...
 END
+```
 
-Output:
+#### Output
 
+```cpp
 SHOW ...
 ```
+
 ---
 
 ### Assigning Abilities
 
 Fighters must learn abilities:
+
 ```cpp
 DEAR "Lee" LEARN [
     ABILITY_NAME(Give_Autographs)
     ABILITY_NAME(Head_Smash)
 ]
 ```
+
 ---
 
-### Type-Based Mechanics
+## Battle Mechanics
 
 Each fighter type has special behavior:
 
@@ -136,25 +154,35 @@ Each fighter type has special behavior:
 - Evasive: deals slightly more damage and receives less  
 - Grappler: gains bonuses depending on round number  
 
+Additional rules:
+
+- Effects can be immediate or delayed  
+- Delayed actions (`AFTER N ROUNDS`) execute later  
+- `TAG` controls whether a fighter is in or out of the ring  
+- Type modifiers are applied automatically during combat  
+
 ---
 
-### Duel System
+## Duel System
 
-The DUEL command starts the fight.
+The `DUEL` command starts the fight.
 
 Flow:
-1. Fighters are displayed
-2. Players choose fighters
-3. Fighters enter the ring
-4. Each round, abilities are selected
-5. Status updates after each action
-6. Fight ends when HP reaches zero
+
+1. Fighters are displayed  
+2. Players choose fighters  
+3. Fighters enter the ring  
+4. Each round, players select abilities  
+5. Status updates after each action  
+6. The fight ends when a fighter reaches 0 HP  
 
 ---
 
 ## Example Program
+
 ```cpp
 #include "Tekken.h"
+
 BEGIN_GAME
 
 CREATE ABILITY {
@@ -199,6 +227,26 @@ DUEL
 
 END_GAME
 ```
+
+---
+
+## Example Output
+
+```text
+Player 1 chooses Lee
+Player 2 chooses Jack-6
+
+Round 1:
+Lee uses Head_Smash
+Jack-6 takes damage
+
+Round 2:
+Jack-6 uses Head_Smash
+Lee takes damage
+
+Winner: Lee
+```
+
 ---
 
 ## Implementation Details
