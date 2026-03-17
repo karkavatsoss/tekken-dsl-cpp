@@ -89,7 +89,7 @@ Utility functions:
 ### Control Flow
 
 Conditionals:
-
+```cpp
 IF condition DO
     ...
 ELSE_IF condition DO
@@ -113,7 +113,7 @@ END
 Output:
 
 SHOW ...
-
+```
 ---
 
 ### Assigning Abilities
